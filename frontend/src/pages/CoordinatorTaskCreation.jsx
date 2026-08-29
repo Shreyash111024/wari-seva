@@ -75,23 +75,30 @@ function CoordinatorTaskCreation() {
     )
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
+    if (preferredDates.length === 0) {
+      alert('Please select at least one preferred date.')
+      return
+    }
+
     const taskData = {
-      taskId: 'GENERATED_BY_BACKEND',
+      taskId: `T${Date.now()}`,
 
       taskName,
 
       description,
 
+      requiredVolunteers: Number(requiredVolunteers),
+
       location: {
         address,
-        latitude,
-        longitude,
+        latitude:
+          latitude === '' ? undefined : Number(latitude),
+        longitude:
+          longitude === '' ? undefined : Number(longitude),
       },
-
-      requiredVolunteers: Number(requiredVolunteers),
 
       requiredSkills,
 
@@ -105,13 +112,64 @@ function CoordinatorTaskCreation() {
       },
 
       status: 'open',
-
-      createdAt: 'GENERATED_BY_BACKEND',
     }
 
     console.log('TASK DATA:', taskData)
 
-    alert('Task created successfully!')
+    try {
+      const response = await fetch(
+        'http://localhost:5000/api/tasks',
+        {
+          method: 'POST',
+
+          headers: {
+            'Content-Type': 'application/json',
+          },
+
+          body: JSON.stringify(taskData),
+        }
+      )
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || 'Task creation failed'
+        )
+      }
+
+      console.log('TASK CREATED:', data)
+
+      alert('Task created successfully!')
+
+      // Clear form after successful submission
+      setTaskName('')
+      setDescription('')
+      setRequiredVolunteers('')
+
+      setAddress('')
+      setLatitude('')
+      setLongitude('')
+      setLocationMessage('')
+
+      setRequiredSkills([])
+      setRequiredLanguages([])
+
+      setPreferredDates([])
+
+      setStartTime('')
+      setEndTime('')
+    } catch (error) {
+      console.error(
+        'Task creation error:',
+        error
+      )
+
+      alert(
+        'Task creation failed: ' +
+        error.message
+      )
+    }
   }
 
   const skills = [
@@ -269,11 +327,13 @@ function CoordinatorTaskCreation() {
               <div className="task-coordinates">
 
                 <p>
-                  <strong>Latitude:</strong> {latitude}
+                  <strong>Latitude:</strong>{' '}
+                  {latitude}
                 </p>
 
                 <p>
-                  <strong>Longitude:</strong> {longitude}
+                  <strong>Longitude:</strong>{' '}
+                  {longitude}
                 </p>
 
               </div>
