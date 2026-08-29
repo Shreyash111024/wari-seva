@@ -7,6 +7,7 @@ function VolunteerRegistration() {
     name: '',
     age: '',
     phone: '',
+    password: '',
     skills: [],
     languages: [],
     selectedDates: [],
@@ -139,6 +140,7 @@ function VolunteerRegistration() {
       name: formData.name,
       age: Number(formData.age),
       phone: formData.phone,
+      password: formData.password,
 
       location: {
         address: location.address,
@@ -187,6 +189,7 @@ function VolunteerRegistration() {
         name: '',
         age: '',
         phone: '',
+        password: '',
         skills: [],
         languages: [],
         selectedDates: [],
@@ -233,7 +236,6 @@ function VolunteerRegistration() {
 
         </div>
 
-
         <form
           className="registration-form"
           onSubmit={handleSubmit}
@@ -259,7 +261,6 @@ function VolunteerRegistration() {
 
             </div>
 
-
             <div className="form-group">
 
               <label>Age</label>
@@ -279,7 +280,6 @@ function VolunteerRegistration() {
 
           </div>
 
-
           <div className="form-group">
 
             <label>Phone Number</label>
@@ -296,6 +296,21 @@ function VolunteerRegistration() {
 
           </div>
 
+          {/* PASSWORD */}
+          <div className="form-group">
+
+            <label>Password</label>
+
+            <input
+              type="password"
+              name="password"
+              placeholder="Create a password"
+              value={formData.password}
+              onChange={handleInputChange}
+              required
+            />
+
+          </div>
 
           {/* LOCATION */}
           <h2>Location</h2>
@@ -320,7 +335,6 @@ function VolunteerRegistration() {
 
           </div>
 
-
           <button
             type="button"
             className="location-button"
@@ -329,13 +343,11 @@ function VolunteerRegistration() {
             📍 Use My Current Location
           </button>
 
-
           {locationMessage && (
             <p className="location-message">
               {locationMessage}
             </p>
           )}
-
 
           {location.latitude &&
             location.longitude && (
@@ -356,7 +368,6 @@ function VolunteerRegistration() {
 
             )}
 
-
           {/* SKILLS */}
           <h2>Skills / Services</h2>
 
@@ -374,7 +385,6 @@ function VolunteerRegistration() {
               Medical Assistance
             </label>
 
-
             <label className="checkbox">
               <input
                 type="checkbox"
@@ -386,7 +396,6 @@ function VolunteerRegistration() {
               />
               Crowd Management
             </label>
-
 
             <label className="checkbox">
               <input
@@ -400,7 +409,6 @@ function VolunteerRegistration() {
               Food Distribution
             </label>
 
-
             <label className="checkbox">
               <input
                 type="checkbox"
@@ -413,7 +421,6 @@ function VolunteerRegistration() {
               Water Distribution
             </label>
 
-
             <label className="checkbox">
               <input
                 type="checkbox"
@@ -425,7 +432,6 @@ function VolunteerRegistration() {
               />
               First Aid
             </label>
-
 
             <label className="checkbox">
               <input
@@ -440,7 +446,6 @@ function VolunteerRegistration() {
             </label>
 
           </div>
-
 
           {/* LANGUAGES */}
           <h2>Languages</h2>
@@ -459,7 +464,6 @@ function VolunteerRegistration() {
               Marathi
             </label>
 
-
             <label className="checkbox">
               <input
                 type="checkbox"
@@ -471,7 +475,6 @@ function VolunteerRegistration() {
               />
               Hindi
             </label>
-
 
             <label className="checkbox">
               <input
@@ -486,7 +489,6 @@ function VolunteerRegistration() {
             </label>
 
           </div>
-
 
           {/* DATE SELECTION */}
           <h2>Available Dates</h2>
@@ -517,7 +519,6 @@ function VolunteerRegistration() {
 
           </div>
 
-
           {/* TIME */}
           <h2>Availability Time</h2>
 
@@ -539,7 +540,6 @@ function VolunteerRegistration() {
 
             </div>
 
-
             <div className="form-group">
 
               <label>
@@ -558,7 +558,6 @@ function VolunteerRegistration() {
 
           </div>
 
-
           {/* ERROR / SUCCESS */}
           {error && (
             <p className="error-message">
@@ -571,7 +570,6 @@ function VolunteerRegistration() {
               {message}
             </p>
           )}
-
 
           {/* REGISTER */}
           <button

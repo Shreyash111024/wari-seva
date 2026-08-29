@@ -7,15 +7,57 @@ function Login() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
-  const handleSubmit = (e) => {
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
+  const [isLoggingIn, setIsLoggingIn] = useState(false)
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
-    console.log({
-      phone,
-      password,
-    })
+    setMessage('')
+    setError('')
+    setIsLoggingIn(true)
 
-    alert('Login submitted successfully!')
+    try {
+      const response = await fetch(
+        'http://localhost:5000/api/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            phone,
+            password,
+          }),
+        }
+      )
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || 'Login failed'
+        )
+      }
+
+      console.log('LOGIN SUCCESS:', data)
+
+      setMessage('Login successful!')
+
+      console.log(
+        'Logged in volunteer:',
+        data.volunteer
+      )
+
+    } catch (err) {
+      console.error('Login error:', err)
+
+      setError(err.message)
+
+    } finally {
+      setIsLoggingIn(false)
+    }
   }
 
   return (
@@ -35,7 +77,10 @@ function Login() {
 
           <div>
             <h1>WariSeva</h1>
-            <p>VOLUNTEER ALLOTMENT SYSTEM</p>
+
+            <p>
+              VOLUNTEER ALLOTMENT SYSTEM
+            </p>
           </div>
 
         </div>
@@ -46,7 +91,9 @@ function Login() {
 
           <h2>WELCOME</h2>
 
-          <p>Login to continue to WariSeva</p>
+          <p>
+            Login to continue to WariSeva
+          </p>
 
         </div>
 
@@ -62,7 +109,7 @@ function Login() {
             <div className="input-wrapper">
 
               <span className="input-icon">
-                
+                📱
               </span>
 
               <input
@@ -89,7 +136,7 @@ function Login() {
             <div className="input-wrapper">
 
               <span className="input-icon">
-                
+                🔒
               </span>
 
               <input
@@ -113,7 +160,7 @@ function Login() {
                   setShowPassword(!showPassword)
                 }
               >
-                {showPassword ? '◉' : '◌'}
+                {showPassword ? '◉' : '○'}
               </button>
 
             </div>
@@ -121,12 +168,31 @@ function Login() {
           </div>
 
 
+          {/* Error Message */}
+          {error && (
+            <p className="error-message">
+              {error}
+            </p>
+          )}
+
+
+          {/* Success Message */}
+          {message && (
+            <p className="success-message">
+              {message}
+            </p>
+          )}
+
+
           {/* Login Button */}
           <button
             type="submit"
             className="login-submit"
+            disabled={isLoggingIn}
           >
-            Login
+            {isLoggingIn
+              ? 'Logging in...'
+              : 'Login'}
           </button>
 
         </form>
@@ -136,9 +202,13 @@ function Login() {
         <div className="login-register">
 
           <div className="or-divider">
+
             <span></span>
+
             <p>OR</p>
+
             <span></span>
+
           </div>
 
           <p className="account-text">
@@ -153,7 +223,9 @@ function Login() {
             }
           >
             Register as Volunteer
+
             <span>→</span>
+
           </button>
 
         </div>

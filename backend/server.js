@@ -59,6 +59,7 @@ app.post("/api/tasks", async (req, res) => {
     });
 
   } catch (error) {
+
     console.error(
       "Task creation failed:",
       error.message
@@ -66,6 +67,62 @@ app.post("/api/tasks", async (req, res) => {
 
     res.status(400).json({
       message: "Task creation failed",
+      error: error.message
+    });
+  }
+});
+
+
+// =========================
+// VOLUNTEER LOGIN
+// =========================
+
+app.post("/api/login", async (req, res) => {
+  try {
+    const { phone, password } = req.body;
+
+    if (!phone || !password) {
+      return res.status(400).json({
+        message: "Phone number and password are required"
+      });
+    }
+
+    const volunteer = await Volunteer.findOne({
+      phone: phone
+    });
+
+    if (!volunteer) {
+      return res.status(401).json({
+        message: "Invalid phone number or password"
+      });
+    }
+
+    if (volunteer.password !== password) {
+      return res.status(401).json({
+        message: "Invalid phone number or password"
+      });
+    }
+
+    res.status(200).json({
+      message: "Login successful",
+
+      volunteer: {
+        volunteerId: volunteer.volunteerId,
+        name: volunteer.name,
+        phone: volunteer.phone,
+        status: volunteer.status
+      }
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Login failed:",
+      error.message
+    );
+
+    res.status(500).json({
+      message: "Login failed",
       error: error.message
     });
   }
