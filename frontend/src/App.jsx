@@ -1,9 +1,14 @@
 import './App.css'
 import { Routes, Route, useNavigate } from 'react-router-dom'
+
 import VolunteerRegistration from './pages/VolunteerRegistration'
 import CoordinatorTaskCreation from './pages/CoordinatorTaskCreation'
-import wariLogo from './assets/wari-logo.png'
 import Login from './pages/Login'
+import Dashboard from './pages/Dashboard'
+
+import wariLogo from './assets/wari-logo.png'
+
+
 function Home() {
   const navigate = useNavigate()
 
@@ -30,35 +35,45 @@ function Home() {
         <span>◆</span>
       </div>
 
+
       {/* Header */}
       <header className="header">
 
         <div className="logo-section">
 
-         <div className="logo-circle">
-  <img
-    src={wariLogo}
-    alt="WariSeva Logo"
-    className="wari-logo"
-  />
-</div>
+          <div className="logo-circle">
+
+            <img
+              src={wariLogo}
+              alt="WariSeva Logo"
+              className="wari-logo"
+            />
+
+          </div>
 
           <div>
+
             <h2>WariSeva</h2>
-            <p>VOLUNTEER ALLOTMENT SYSTEM</p>
+
+            <p>
+              VOLUNTEER ALLOTMENT SYSTEM
+            </p>
+
           </div>
 
         </div>
 
+
         {/* Login */}
         <button
           className="login-btn"
-         onClick={() => navigate('/login')}
+          onClick={() => navigate('/login')}
         >
-           Login
+          Login
         </button>
 
       </header>
+
 
       {/* Main Content */}
       <main>
@@ -69,7 +84,7 @@ function Home() {
           <div className="hero-content">
 
             <div className="small-title">
-               &nbsp; SMART VOLUNTEER MANAGEMENT
+              &nbsp; SMART VOLUNTEER MANAGEMENT
             </div>
 
             <h1>
@@ -89,15 +104,20 @@ function Home() {
               {/* Volunteer Registration */}
               <button
                 className="primary-btn"
-                onClick={() => navigate('/volunteer-registration')}
+                onClick={() =>
+                  navigate('/volunteer-registration')
+                }
               >
                 Volunteer Registration
               </button>
 
+
               {/* Coordinator Task Creation */}
               <button
                 className="secondary-btn"
-               onClick={() => navigate('/coordinator-task-creation')}
+                onClick={() =>
+                  navigate('/coordinator-task-creation')
+                }
               >
                 Coordinator Task Creation
               </button>
@@ -108,10 +128,13 @@ function Home() {
 
         </section>
 
+
         {/* Features */}
         <section className="features-section">
 
-          <h2>How Wari-Seva Helps</h2>
+          <h2>
+            How Wari-Seva Helps
+          </h2>
 
           <div className="decorative-line">
             ◆
@@ -136,6 +159,7 @@ function Home() {
 
             </div>
 
+
             <div className="feature-card">
 
               <div className="feature-icon">
@@ -152,6 +176,7 @@ function Home() {
               </p>
 
             </div>
+
 
             <div className="feature-card">
 
@@ -176,6 +201,7 @@ function Home() {
 
       </main>
 
+
       {/* Footer */}
       <footer>
         © 2026 Wari-Seva | Smart Volunteer & Task Management
@@ -191,29 +217,49 @@ function Home() {
 ========================= */
 
 function App() {
+
   return (
+
     <Routes>
 
-  <Route
-    path="/"
-    element={<Home />}
-  />
+      {/* Home */}
+      <Route
+        path="/"
+        element={<Home />}
+      />
 
-  <Route
-    path="/volunteer-registration"
-    element={<VolunteerRegistration />}
-  />
 
-  <Route
-    path="/coordinator-task-creation"
-    element={<CoordinatorTaskCreation />}
-  />
-<Route
-  path="/login"
-  element={<Login />}
-/>
-</Routes>
+      {/* Volunteer Registration */}
+      <Route
+        path="/volunteer-registration"
+        element={<VolunteerRegistration />}
+      />
+
+
+      {/* Coordinator Task Creation */}
+      <Route
+        path="/coordinator-task-creation"
+        element={<CoordinatorTaskCreation />}
+      />
+
+
+      {/* Login */}
+      <Route
+        path="/login"
+        element={<Login />}
+      />
+
+
+      {/* Volunteer Dashboard */}
+      <Route
+        path="/dashboard"
+        element={<Dashboard />}
+      />
+
+    </Routes>
+
   )
 }
+
 
 export default App

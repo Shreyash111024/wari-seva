@@ -43,12 +43,25 @@ function Login() {
 
       console.log('LOGIN SUCCESS:', data)
 
+      // Save logged-in volunteer information
+      if (data.volunteer) {
+        localStorage.setItem(
+          'loggedInVolunteer',
+          JSON.stringify(data.volunteer)
+        )
+      }
+
       setMessage('Login successful!')
 
       console.log(
         'Logged in volunteer:',
         data.volunteer
       )
+
+      // Redirect to Dashboard after successful login
+      setTimeout(() => {
+        window.location.href = '/dashboard'
+      }, 800)
 
     } catch (err) {
       console.error('Login error:', err)

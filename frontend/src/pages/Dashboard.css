@@ -1,0 +1,1196 @@
+/* =========================
+   WARI-SEVA VOLUNTEER DASHBOARD
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+.dashboard-page {
+  min-height: 100vh;
+  background: #fffaf5;
+  color: #302520;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.dashboard-header {
+  min-height: 90px;
+  padding: 18px 6%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #ffffff;
+
+  border-bottom: 1px solid #f0dfca;
+}
+
+.dashboard-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.dashboard-logo {
+  width: 56px;
+  height: 56px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #a3262b;
+
+  color: white;
+
+  font-size: 27px;
+}
+
+.dashboard-brand h1 {
+  margin: 0;
+
+  color: #a3262b;
+
+  font-size: 29px;
+  font-weight: 700;
+}
+
+.dashboard-brand p {
+  margin: 3px 0 0;
+
+  color: #6b5a52;
+
+  font-size: 12px;
+
+  letter-spacing: 2px;
+}
+
+.dashboard-user {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  color: #59483f;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.logout-button {
+  padding: 10px 22px;
+
+  border: none;
+  border-radius: 25px;
+
+  background: #a3262b;
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.logout-button:hover {
+  background: #861f24;
+}
+
+
+/* =========================
+   SUCCESS MESSAGE
+========================= */
+
+.dashboard-message {
+  width: 92%;
+  max-width: 1250px;
+
+  margin: 20px auto 0;
+
+  padding: 14px 18px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  border: 1px solid #b8d2b3;
+  border-radius: 12px;
+
+  background: #f1f8ef;
+
+  color: #315b2e;
+
+  font-size: 14px;
+}
+
+.success-icon {
+  width: 25px;
+  height: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #3f633c;
+
+  color: white;
+
+  font-weight: bold;
+}
+
+.dashboard-message button {
+  margin-left: auto;
+
+  border: none;
+
+  background: transparent;
+
+  color: #315b2e;
+
+  font-size: 22px;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.dashboard-content {
+  width: 92%;
+  max-width: 1250px;
+
+  margin: 30px auto 60px;
+}
+
+
+/* =========================
+   WELCOME SECTION
+========================= */
+
+.welcome-section {
+  min-height: 250px;
+
+  padding: 38px 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: 20px;
+
+  background: #fff0df;
+}
+
+.welcome-label {
+  margin: 0 0 10px;
+
+  color: #a3262b;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 3px;
+}
+
+.welcome-section h2 {
+  margin: 0;
+
+  color: #a3262b;
+
+  font-size: 42px;
+  line-height: 1.1;
+}
+
+.welcome-section h2 span {
+  color: #3f633c;
+}
+
+.welcome-text {
+  max-width: 650px;
+
+  margin: 18px 0 0;
+
+  color: #59483f;
+
+  font-size: 17px;
+
+  line-height: 1.6;
+}
+
+.task-count {
+  min-width: 165px;
+
+  padding: 25px;
+
+  text-align: center;
+
+  border-radius: 16px;
+
+  background: white;
+
+  box-shadow: 0 5px 20px rgba(100, 50, 20, 0.08);
+}
+
+.task-count strong {
+  display: block;
+
+  color: #a3262b;
+
+  font-size: 42px;
+}
+
+.task-count span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #6b5a52;
+
+  font-size: 13px;
+}
+
+
+/* =========================
+   SECTION HEADERS
+========================= */
+
+.tasks-section,
+.map-preview-section,
+.how-section {
+  margin-top: 38px;
+}
+
+.section-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 18px;
+}
+
+.section-label {
+  margin: 0 0 6px;
+
+  color: #a3262b;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 2.5px;
+}
+
+.section-header h2 {
+  margin: 0;
+
+  color: #3f633c;
+
+  font-size: 28px;
+}
+
+.live-badge,
+.pune-badge {
+  padding: 8px 14px;
+
+  border-radius: 20px;
+
+  background: #f8e3df;
+
+  color: #a3262b;
+
+  font-size: 11px;
+
+  font-weight: 800;
+}
+
+
+/* =========================
+   TASK CARDS
+========================= */
+
+.tasks-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+.task-card {
+  padding: 22px;
+
+  border: 1px solid #eadfd5;
+
+  border-radius: 16px;
+
+  background: white;
+
+  box-shadow: 0 5px 18px rgba(100, 50, 20, 0.06);
+
+  transition: 0.2s;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 22px rgba(100, 50, 20, 0.09);
+}
+
+.accepted-card {
+  border-color: #a9c6a4;
+
+  background: #f8fcf6;
+}
+
+.reported-card {
+  border-color: #b8d2b3;
+
+  background: #f5faf3;
+}
+
+
+/* =========================
+   TASK CARD TOP
+========================= */
+
+.task-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-badge {
+  display: inline-block;
+
+  padding: 6px 10px;
+
+  border-radius: 12px;
+
+  background: #fff0df;
+
+  color: #a3262b;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.5px;
+}
+
+.accepted-badge {
+  background: #e8f3e5;
+
+  color: #3f633c;
+}
+
+.reported-badge {
+  background: #e4f1e1;
+
+  color: #315b2e;
+}
+
+
+/* =========================
+   TASK CONTENT
+========================= */
+
+.task-card h3 {
+  margin: 15px 0 8px;
+
+  color: #3b2b25;
+
+  font-size: 19px;
+}
+
+.task-description {
+  margin: 0 0 15px;
+
+  color: #6b5a52;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+.task-info {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 9px;
+
+  margin-top: 15px;
+}
+
+.task-info div {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  color: #59483f;
+
+  font-size: 13px;
+}
+
+.task-info div span:first-child {
+  width: 20px;
+
+  text-align: center;
+}
+
+
+/* =========================
+   TASK BUTTONS
+========================= */
+
+.task-actions {
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: 20px;
+}
+
+.accept-button,
+.decline-button {
+  flex: 1;
+
+  min-height: 42px;
+
+  border-radius: 9px;
+
+  font-size: 14px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.accept-button {
+  border: none;
+
+  background: #3f633c;
+
+  color: white;
+}
+
+.accept-button:hover {
+  background: #31532e;
+}
+
+.decline-button {
+  border: 1px solid #d8c9bf;
+
+  background: white;
+
+  color: #6b5a52;
+}
+
+.decline-button:hover {
+  border-color: #a3262b;
+
+  color: #a3262b;
+}
+
+
+/* =========================
+   ACCEPTED TASK DETAILS
+========================= */
+
+.accepted-details {
+  margin-top: 15px;
+}
+
+.accepted-title {
+  margin-bottom: 18px;
+
+  padding: 11px;
+
+  border-radius: 9px;
+
+  background: #eaf4e7;
+
+  color: #315b2e;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  text-align: center;
+}
+
+.detail-row {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 12px;
+
+  padding: 10px 0;
+
+  border-bottom: 1px solid #eee5de;
+}
+
+.detail-row > span {
+  width: 25px;
+
+  padding-top: 2px;
+
+  text-align: center;
+}
+
+.detail-row div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.detail-row small {
+  color: #8a7770;
+
+  font-size: 11px;
+}
+
+.detail-row strong {
+  color: #3a2923;
+
+  font-size: 13px;
+}
+
+.confirmed-status {
+  margin-top: 15px;
+
+  padding: 9px;
+
+  border-radius: 8px;
+
+  background: #e8f3e5;
+
+  color: #3f633c;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  text-align: center;
+}
+
+.report-button {
+  width: 100%;
+
+  margin-top: 12px;
+
+  padding: 12px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background: #a3262b;
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.report-button:hover {
+  background: #861f24;
+}
+
+
+/* =========================
+   REPORTED TASK
+========================= */
+
+.reported-details {
+  margin-top: 15px;
+}
+
+.reported-success {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 12px;
+
+  padding: 13px;
+
+  border-radius: 10px;
+
+  background: #eaf4e7;
+
+  color: #315b2e;
+}
+
+.reported-icon {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #3f633c;
+
+  color: white;
+
+  font-weight: bold;
+}
+
+.reported-success strong {
+  display: block;
+
+  font-size: 13px;
+}
+
+.reported-success p {
+  margin: 5px 0 0;
+
+  color: #557050;
+
+  font-size: 11px;
+
+  line-height: 1.4;
+}
+
+.completed-task-info {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+
+  margin-top: 14px;
+
+  color: #59483f;
+
+  font-size: 12px;
+}
+
+
+/* =========================
+   NO TASKS
+========================= */
+
+.no-tasks {
+  grid-column: 1 / -1;
+
+  padding: 45px;
+
+  text-align: center;
+
+  border: 1px dashed #d9c9bd;
+
+  border-radius: 16px;
+
+  background: white;
+}
+
+.no-tasks > div {
+  width: 45px;
+  height: 45px;
+
+  margin: 0 auto 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #eaf4e7;
+
+  color: #3f633c;
+
+  font-size: 22px;
+}
+
+.no-tasks h3 {
+  margin: 0 0 7px;
+
+  color: #3b2b25;
+}
+
+.no-tasks p {
+  margin: 0;
+
+  color: #777;
+
+  font-size: 13px;
+}
+
+
+/* =========================
+   PUNE MAP
+========================= */
+
+.map-text {
+  margin: -5px 0 16px;
+
+  color: #6b5a52;
+
+  font-size: 14px;
+}
+
+.pune-map {
+  position: relative;
+
+  height: 500px;
+
+  overflow: hidden;
+
+  border: 1px solid #eadfd5;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e9eee5,
+      #f3eee7
+    );
+
+  box-shadow:
+    0 6px 20px rgba(100, 50, 20, 0.08);
+}
+
+
+/* Decorative map roads */
+
+.pune-map::before,
+.pune-map::after {
+  content: "";
+
+  position: absolute;
+
+  background: rgba(255, 255, 255, 0.9);
+
+  transform: rotate(-18deg);
+}
+
+.pune-map::before {
+  width: 120%;
+  height: 35px;
+
+  top: 45%;
+
+  left: -10%;
+}
+
+.pune-map::after {
+  width: 35px;
+  height: 120%;
+
+  left: 55%;
+  top: -10%;
+
+  transform: rotate(25deg);
+}
+
+
+/* Map title */
+
+.map-overlay {
+  position: absolute;
+
+  z-index: 10;
+
+  top: 20px;
+  left: 20px;
+
+  padding: 13px 17px;
+
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.94);
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.map-title {
+  color: #a3262b;
+
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.map-subtitle {
+  margin-top: 3px;
+
+  color: #6b5a52;
+
+  font-size: 11px;
+}
+
+
+/* Wari routes */
+
+.route {
+  position: absolute;
+
+  z-index: 4;
+
+  height: 7px;
+
+  border-radius: 10px;
+
+  transform-origin: left center;
+}
+
+.route-one {
+  width: 72%;
+
+  left: 10%;
+  top: 57%;
+
+  background: #a3262b;
+
+  transform: rotate(-12deg);
+}
+
+.route-two {
+  width: 58%;
+
+  left: 25%;
+  top: 38%;
+
+  background: #e87918;
+
+  transform: rotate(25deg);
+}
+
+
+/* Heatmap points */
+
+.heat-point {
+  position: absolute;
+
+  z-index: 5;
+
+  width: 95px;
+  height: 95px;
+
+  border-radius: 50%;
+
+  filter: blur(8px);
+
+  opacity: 0.55;
+}
+
+.heat-one {
+  left: 43%;
+  top: 48%;
+
+  background: #a3262b;
+}
+
+.heat-two {
+  left: 65%;
+  top: 57%;
+
+  width: 75px;
+  height: 75px;
+
+  background: #e87918;
+}
+
+.heat-three {
+  left: 28%;
+  top: 30%;
+
+  width: 65px;
+  height: 65px;
+
+  background: #3f633c;
+}
+
+.heat-four {
+  left: 73%;
+  top: 25%;
+
+  width: 55px;
+  height: 55px;
+
+  background: #e87918;
+}
+
+
+/* Map labels */
+
+.map-label {
+  position: absolute;
+
+  z-index: 8;
+
+  padding: 5px 8px;
+
+  border-radius: 6px;
+
+  background: rgba(255, 255, 255, 0.9);
+
+  color: #3a2923;
+
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.label-one {
+  left: 48%;
+  top: 63%;
+}
+
+.label-two {
+  left: 68%;
+  top: 67%;
+}
+
+.label-three {
+  left: 30%;
+  top: 44%;
+}
+
+
+/* Map legend */
+
+.map-legend {
+  position: absolute;
+
+  z-index: 20;
+
+  right: 18px;
+  bottom: 18px;
+
+  min-width: 165px;
+
+  padding: 14px;
+
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+
+  font-size: 11px;
+}
+
+.map-legend strong {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #a3262b;
+}
+
+.map-legend div {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top: 6px;
+
+  color: #59483f;
+}
+
+.legend-dot {
+  width: 11px;
+  height: 11px;
+
+  border-radius: 50%;
+
+  display: inline-block;
+}
+
+.legend-dot.high {
+  background: #a3262b;
+}
+
+.legend-dot.medium {
+  background: #e87918;
+}
+
+.legend-dot.low {
+  background: #3f633c;
+}
+
+
+/* =========================
+   HOW IT WORKS
+========================= */
+
+.how-section > h2 {
+  margin: 0 0 18px;
+
+  color: #3f633c;
+
+  font-size: 28px;
+}
+
+.how-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 16px;
+}
+
+.how-card {
+  padding: 22px;
+
+  border: 1px solid #eadfd5;
+
+  border-radius: 15px;
+
+  background: white;
+}
+
+.how-number {
+  color: #a3262b;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+.how-card h3 {
+  margin: 10px 0 8px;
+
+  color: #3b2b25;
+
+  font-size: 17px;
+}
+
+.how-card p {
+  margin: 0;
+
+  color: #6b5a52;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.dashboard-footer {
+  padding: 20px;
+
+  background: #a3262b;
+
+  color: white;
+
+  text-align: center;
+
+  font-size: 13px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+
+  .tasks-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .how-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+@media (max-width: 700px) {
+
+  .dashboard-header {
+    padding: 15px 4%;
+  }
+
+  .dashboard-user span {
+    display: none;
+  }
+
+  .dashboard-content {
+    width: 94%;
+  }
+
+  .welcome-section {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 25px;
+
+    padding: 28px;
+  }
+
+  .task-count {
+    width: 100%;
+  }
+
+  .tasks-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .how-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pune-map {
+    height: 400px;
+  }
+
+}
+
+@media (max-width: 500px) {
+
+  .dashboard-brand h1 {
+    font-size: 23px;
+  }
+
+  .dashboard-logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .welcome-section h2 {
+    font-size: 32px;
+  }
+
+  .section-header h2 {
+    font-size: 23px;
+  }
+
+  .dashboard-message {
+    font-size: 12px;
+  }
+
+}
