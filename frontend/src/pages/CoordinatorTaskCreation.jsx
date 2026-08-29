@@ -14,15 +14,9 @@ function CoordinatorTaskCreation() {
   const [requiredSkills, setRequiredSkills] = useState([])
   const [requiredLanguages, setRequiredLanguages] = useState([])
 
-  const [date, setDate] = useState('')
+  const [preferredDates, setPreferredDates] = useState([])
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
-
-  const [fullDayAvailability, setFullDayAvailability] =
-    useState(false)
-
-  const [physicallyFit, setPhysicallyFit] =
-    useState(false)
 
   const getCurrentLocation = () => {
     if (!navigator.geolocation) {
@@ -73,6 +67,14 @@ function CoordinatorTaskCreation() {
     )
   }
 
+  const handleDateChange = (date) => {
+    setPreferredDates((previous) =>
+      previous.includes(date)
+        ? previous.filter((item) => item !== date)
+        : [...previous, date]
+    )
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -95,16 +97,11 @@ function CoordinatorTaskCreation() {
 
       requiredLanguages,
 
-      date,
+      preferredDates,
 
       time: {
         start: startTime,
         end: endTime,
-      },
-
-      extraRequirements: {
-        fullDayAvailability,
-        physicallyFit,
       },
 
       status: 'open',
@@ -114,9 +111,7 @@ function CoordinatorTaskCreation() {
 
     console.log('TASK DATA:', taskData)
 
-    alert(
-      'Task created successfully!'
-    )
+    alert('Task created successfully!')
   }
 
   const skills = [
@@ -134,12 +129,20 @@ function CoordinatorTaskCreation() {
     'English',
   ]
 
+  const dates = [
+    '9 July',
+    '10 July',
+    '11 July',
+  ]
+
   return (
     <div className="task-page">
 
       <div className="task-card">
 
-        {/* Header */}
+        {/* =========================
+            HEADER
+        ========================== */}
 
         <div className="task-header">
 
@@ -163,7 +166,9 @@ function CoordinatorTaskCreation() {
           onSubmit={handleSubmit}
         >
 
-          {/* Task Information */}
+          {/* =========================
+              TASK INFORMATION
+          ========================== */}
 
           <h2>Task Information</h2>
 
@@ -219,7 +224,9 @@ function CoordinatorTaskCreation() {
           </div>
 
 
-          {/* Location */}
+          {/* =========================
+              TASK LOCATION
+          ========================== */}
 
           <h2>Task Location</h2>
 
@@ -256,22 +263,27 @@ function CoordinatorTaskCreation() {
           )}
 
 
-          {latitude !== '' && longitude !== '' && (
-            <div className="task-coordinates">
+          {latitude !== '' &&
+            longitude !== '' && (
 
-              <p>
-                <strong>Latitude:</strong> {latitude}
-              </p>
+              <div className="task-coordinates">
 
-              <p>
-                <strong>Longitude:</strong> {longitude}
-              </p>
+                <p>
+                  <strong>Latitude:</strong> {latitude}
+                </p>
 
-            </div>
-          )}
+                <p>
+                  <strong>Longitude:</strong> {longitude}
+                </p>
+
+              </div>
+
+            )}
 
 
-          {/* Skills */}
+          {/* =========================
+              REQUIRED SKILLS
+          ========================== */}
 
           <h2>Required Skills</h2>
 
@@ -292,7 +304,7 @@ function CoordinatorTaskCreation() {
                   }
                 />
 
-                {skill}
+                <span>{skill}</span>
 
               </label>
 
@@ -301,7 +313,9 @@ function CoordinatorTaskCreation() {
           </div>
 
 
-          {/* Languages */}
+          {/* =========================
+              REQUIRED LANGUAGES
+          ========================== */}
 
           <h2>Required Languages</h2>
 
@@ -316,15 +330,13 @@ function CoordinatorTaskCreation() {
 
                 <input
                   type="checkbox"
-                  checked={requiredLanguages.includes(
-                    language
-                  )}
+                  checked={requiredLanguages.includes(language)}
                   onChange={() =>
                     handleLanguageChange(language)
                   }
                 />
 
-                {language}
+                <span>{language}</span>
 
               </label>
 
@@ -333,44 +345,50 @@ function CoordinatorTaskCreation() {
           </div>
 
 
-          {/* Date & Time */}
+          {/* =========================
+              DATE & TIME
+          ========================== */}
 
           <h2>Date & Time</h2>
 
-          <div className="task-form-row">
 
-            <div className="form-group">
+          {/* Preferred Dates */}
 
-              <label>Date</label>
+          <div className="form-group">
 
-              <div className="task-date-wrapper">
+            <label>Preferred Dates</label>
 
-                <input
-                  type="date"
-                  value={date}
-                  onChange={(e) =>
-                    setDate(e.target.value)
-                  }
-                  min={
-                    new Date()
-                      .toISOString()
-                      .split('T')[0]
-                  }
-                  required
-                />
+            <div className="preferred-dates-list">
 
-                <span className="task-date-placeholder">
-                  DD / MM / YYYY
-                </span>
+              {dates.map((date) => (
 
-                <span className="task-calendar-icon">
-                  📅
-                </span>
+                <label
+                  className="preferred-date-option"
+                  key={date}
+                >
 
-              </div>
+                  <input
+                    type="checkbox"
+                    checked={preferredDates.includes(date)}
+                    onChange={() =>
+                      handleDateChange(date)
+                    }
+                  />
+
+                  <span>{date}</span>
+
+                </label>
+
+              ))}
 
             </div>
 
+          </div>
+
+
+          {/* Start and End Time */}
+
+          <div className="task-form-row">
 
             <div className="form-group">
 
@@ -387,64 +405,28 @@ function CoordinatorTaskCreation() {
 
             </div>
 
+
+            <div className="form-group">
+
+              <label>End Time</label>
+
+              <input
+                type="time"
+                value={endTime}
+                onChange={(e) =>
+                  setEndTime(e.target.value)
+                }
+                required
+              />
+
+            </div>
+
           </div>
 
 
-          <div className="form-group">
-
-            <label>End Time</label>
-
-            <input
-              type="time"
-              value={endTime}
-              onChange={(e) =>
-                setEndTime(e.target.value)
-              }
-              required
-            />
-
-          </div>
-
-
-          {/* Extra Requirements */}
-
-          <h2>Extra Requirements</h2>
-
-          <label className="task-checkbox task-large-checkbox">
-
-            <input
-              type="checkbox"
-              checked={fullDayAvailability}
-              onChange={(e) =>
-                setFullDayAvailability(
-                  e.target.checked
-                )
-              }
-            />
-
-            Full Day Availability Required
-
-          </label>
-
-
-          <label className="task-checkbox task-large-checkbox">
-
-            <input
-              type="checkbox"
-              checked={physicallyFit}
-              onChange={(e) =>
-                setPhysicallyFit(
-                  e.target.checked
-                )
-              }
-            />
-
-            Physically Fit
-
-          </label>
-
-
-          {/* Create Task */}
+          {/* =========================
+              CREATE TASK
+          ========================== */}
 
           <button
             type="submit"

@@ -1,24 +1,35 @@
 /* =========================
-   TASK PAGE
+   COORDINATOR TASK PAGE
 ========================= */
+
+* {
+  box-sizing: border-box;
+}
 
 .task-page {
   min-height: 100vh;
-  padding: 50px 20px;
+  padding: 45px 20px 60px;
   background: #fffaf5;
 }
 
+
+/* =========================
+   MAIN CARD
+========================= */
+
 .task-card {
+  width: 100%;
   max-width: 900px;
-  margin: auto;
 
-  background: white;
-
-  border-radius: 22px;
+  margin: 0 auto;
 
   padding: 45px;
 
+  background: #ffffff;
+
   border: 1px solid #f0dfca;
+
+  border-radius: 22px;
 
   box-shadow: 0 8px 30px rgba(100, 50, 20, 0.08);
 }
@@ -35,25 +46,30 @@
   gap: 18px;
 
   padding-bottom: 30px;
+
   margin-bottom: 30px;
 
   border-bottom: 1px solid #f0dfca;
 }
 
-.task-logo {
-  width: 55px;
-  height: 55px;
 
-  border-radius: 50%;
+.task-logo {
+  width: 66px;
+  height: 66px;
+
+  flex-shrink: 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background: #fff0df;
+  border-radius: 50%;
 
-  font-size: 28px;
+  background: #a3262b;
+
+  font-size: 30px;
 }
+
 
 .task-header h1 {
   margin: 0;
@@ -61,7 +77,10 @@
   color: #a3262b;
 
   font-size: 32px;
+
+  font-weight: 700;
 }
+
 
 .task-header p {
   margin: 6px 0 0;
@@ -73,43 +92,53 @@
 
 
 /* =========================
-   SECTION HEADINGS
+   FORM
 ========================= */
 
 .task-form h2 {
+  margin: 30px 0 20px;
+
   color: #3f633c;
 
   font-size: 21px;
 
-  margin: 30px 0 20px;
+  font-weight: 700;
 }
 
 
-/* =========================
-   FORM
-========================= */
-
 .form-group {
   display: flex;
+
   flex-direction: column;
 
   margin-bottom: 20px;
 }
 
+
 .form-group label {
+  margin-bottom: 8px;
+
   color: #4a3029;
 
-  font-weight: bold;
+  font-size: 15px;
 
-  margin-bottom: 8px;
+  font-weight: 700;
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
+
+/* =========================
+   INPUTS
+========================= */
+
+.task-form input[type="text"],
+.task-form input[type="number"],
+.task-form input[type="date"],
+.task-form input[type="time"],
+.task-form textarea,
+.task-form select {
   width: 100%;
 
-  padding: 13px 15px;
+  padding: 14px 15px;
 
   border: 1px solid #dfd2c7;
 
@@ -117,24 +146,39 @@
 
   background: #fffaf5;
 
-  font-size: 16px;
+  color: #3a2923;
 
   font-family: inherit;
 
+  font-size: 16px;
+
   outline: none;
+
+  -webkit-text-fill-color: #3a2923;
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
+
+.task-form textarea {
+  min-height: 120px;
+
+  resize: vertical;
+}
+
+
+.task-form input::placeholder,
+.task-form textarea::placeholder {
+  color: #8a7770;
+
+  opacity: 1;
+}
+
+
+.task-form input:focus,
+.task-form textarea:focus,
+.task-form select:focus {
   border-color: #a3262b;
 
-  box-shadow:
-    0 0 0 3px rgba(163, 38, 43, 0.08);
-}
-
-.form-group textarea {
-  resize: vertical;
+  box-shadow: 0 0 0 3px rgba(163, 38, 43, 0.08);
 }
 
 
@@ -157,36 +201,46 @@
 
   font-size: 16px;
 
-  font-weight: bold;
+  font-weight: 700;
 
   cursor: pointer;
+
+  transition: 0.2s;
 }
+
 
 .task-location-button:hover {
   background: #3f633c;
 
-  color: white;
+  color: #ffffff;
 }
 
+
 .task-location-message {
+  margin: 10px 0;
+
   color: #3f633c;
 
   font-size: 14px;
-
-  margin: 10px 0;
 }
 
+
 .task-coordinates {
-  background: #fff0df;
+  margin-top: 12px;
+
+  margin-bottom: 20px;
 
   padding: 12px 15px;
 
   border-radius: 10px;
 
+  background: #fff0df;
+
   color: #59483f;
 
   font-size: 14px;
 }
+
 
 .task-coordinates p {
   margin: 4px 0;
@@ -194,7 +248,7 @@
 
 
 /* =========================
-   CHECKBOXES
+   SKILLS / LANGUAGES
 ========================= */
 
 .task-checkbox-grid {
@@ -204,8 +258,9 @@
 
   gap: 12px;
 
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
+
 
 .task-checkbox {
   display: flex;
@@ -214,7 +269,9 @@
 
   gap: 10px;
 
-  padding: 12px;
+  min-height: 50px;
+
+  padding: 12px 15px;
 
   border: 1px solid #eadfd5;
 
@@ -224,29 +281,54 @@
 
   color: #59483f;
 
+  font-size: 16px;
+
+  font-weight: 500;
+
   cursor: pointer;
+
+  transition: 0.2s;
 }
+
 
 .task-checkbox:hover {
   border-color: #a3262b;
+
+  background: #fff3e8;
 }
 
-.task-checkbox input {
-  width: 17px;
-  height: 17px;
+
+.task-checkbox input[type="checkbox"] {
+  width: 18px;
+
+  height: 18px;
+
+  margin: 0;
 
   accent-color: #a3262b;
+
+  cursor: pointer;
+
+  flex-shrink: 0;
 }
 
-.task-large-checkbox {
-  margin-bottom: 12px;
 
-  min-height: 48px;
+.task-checkbox:has(input:checked) {
+  border-color: #a3262b;
+
+  background: #fff0df;
+}
+
+
+.task-checkbox:has(input:checked) span {
+  color: #a3262b;
+
+  font-weight: 600;
 }
 
 
 /* =========================
-   DATE
+   DATE & TIME
 ========================= */
 
 .task-form-row {
@@ -257,46 +339,52 @@
   gap: 20px;
 }
 
+
+.task-form input[type="date"],
+.task-form input[type="time"] {
+  height: 50px;
+
+  cursor: pointer;
+}
+
+
+/* Remove any old custom date overlay */
+
 .task-date-wrapper {
   position: relative;
 
   width: 100%;
 }
 
-.task-date-wrapper input {
+
+/* =========================
+   EXTRA REQUIREMENTS
+========================= */
+
+.extra-requirements {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+  margin-bottom: 25px;
+}
+
+
+.task-large-checkbox {
   width: 100%;
 
-  padding-right: 90px;
+  min-height: 60px;
+
+  padding: 14px 18px;
 }
 
-.task-date-placeholder {
-  position: absolute;
 
-  left: 18px;
+.task-large-checkbox input[type="checkbox"] {
+  width: 20px;
 
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  color: #999;
-
-  font-size: 16px;
-
-  pointer-events: none;
-}
-
-.task-calendar-icon {
-  position: absolute;
-
-  right: 18px;
-
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  font-size: 20px;
-
-  pointer-events: none;
+  height: 20px;
 }
 
 
@@ -309,7 +397,7 @@
 
   padding: 16px;
 
-  margin-top: 20px;
+  margin-top: 15px;
 
   border: none;
 
@@ -317,17 +405,22 @@
 
   background: #a3262b;
 
-  color: white;
+  color: #ffffff;
 
   font-size: 18px;
 
-  font-weight: bold;
+  font-weight: 700;
 
   cursor: pointer;
+
+  transition: 0.2s;
 }
+
 
 .create-task-button:hover {
   background: #861f24;
+
+  transform: translateY(-1px);
 }
 
 
@@ -341,46 +434,142 @@
     padding: 25px 15px;
   }
 
+
   .task-card {
     padding: 25px 20px;
+
+    border-radius: 18px;
   }
 
-  .task-header h1 {
+
+  .task-header {
+    gap: 12px;
+
+    padding-bottom: 25px;
+  }
+
+
+  .task-logo {
+    width: 55px;
+
+    height: 55px;
+
     font-size: 25px;
   }
 
+
+  .task-header h1 {
+    font-size: 24px;
+  }
+
+
+  .task-header p {
+    font-size: 14px;
+  }
+
+
   .task-form-row {
     grid-template-columns: 1fr;
+
     gap: 0;
   }
+
 
   .task-checkbox-grid {
     grid-template-columns: 1fr;
   }
 
 }
-/* Fix text visibility inside coordinator form */
+/* =========================
+   PREFERRED DATES
+========================= */
 
-.task-form input,
-.task-form textarea,
-.task-form select {
-  color: #3a2923 !important;
-  background-color: #fffaf5 !important;
-  -webkit-text-fill-color: #3a2923 !important;
+.preferred-dates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 5px;
 }
 
-.task-form input::placeholder,
-.task-form textarea::placeholder {
-  color: #8a7770 !important;
-  opacity: 1 !important;
+.preferred-date-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  width: 100%;
+  min-height: 52px;
+
+  padding: 12px 16px;
+
+  border: 1px solid #eadfd5;
+  border-radius: 10px;
+
+  background: #fffaf5;
+
+  color: #3a2923;
+
+  font-size: 16px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-/* Make selected date/time visible */
-.task-form input[type="date"],
-.task-form input[type="time"],
-.task-form input[type="number"],
-.task-form input[type="text"],
-.task-form input[type="tel"] {
+.preferred-date-option:hover {
+  border-color: #a3262b;
+  background: #fff3e8;
+}
+
+.preferred-date-option input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+
+  margin: 0;
+
+  accent-color: #a3262b;
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+}
+
+.preferred-date-option:has(input:checked) {
+  border-color: #a3262b;
+  background: #fff0df;
+}
+
+.preferred-date-option:has(input:checked) span {
+  color: #a3262b;
+  font-weight: 600;
+}
+
+
+/* =========================
+   TIME
+========================= */
+
+.task-form input[type="time"] {
+  height: 50px;
+
   color: #3a2923 !important;
+  background: #fffaf5 !important;
+
   -webkit-text-fill-color: #3a2923 !important;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+  .task-form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
 }

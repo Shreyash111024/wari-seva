@@ -1,4 +1,6 @@
-/* Volunteer Registration Page */
+/* =========================
+   VOLUNTEER REGISTRATION PAGE
+========================= */
 
 .registration-page {
   min-height: 100vh;
@@ -6,152 +8,430 @@
   background: #fffaf5;
 }
 
-/* Main Card */
+
+/* =========================
+   MAIN CARD
+========================= */
 
 .registration-card {
   max-width: 900px;
   margin: auto;
+
   background: #ffffff;
+
   border-radius: 22px;
+
   padding: 45px;
+
   box-shadow: 0 8px 30px rgba(100, 50, 20, 0.08);
+
   border: 1px solid #f0dfca;
 }
 
-/* Header */
+
+/* =========================
+   HEADER
+========================= */
 
 .registration-header {
   display: flex;
   align-items: center;
+
   gap: 18px;
+
   padding-bottom: 30px;
+
   border-bottom: 1px solid #f0dfca;
+
   margin-bottom: 30px;
 }
 
-.registration-logo {
-  width: 55px;
-  height: 55px;
+
+/* Wari Logo */
+
+.logo-circle {
+  width: 66px;
+  height: 66px;
+
   border-radius: 50%;
+
+  overflow: hidden;
+
+  flex-shrink: 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background: linear-gradient(
-    135deg,
-    #e87918,
-    #a3262b
-  );
-
-  color: white;
-  font-size: 32px;
-  font-weight: bold;
+  background: #000000;
 }
+
+.logo-circle img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+
+  transform: translateY(7px);
+}
+
 
 .registration-header h1 {
   margin: 0;
+
   color: #a3262b;
+
   font-size: 32px;
 }
 
 .registration-header p {
   margin: 6px 0 0;
+
   color: #6b5a52;
+
   font-size: 16px;
 }
 
-/* Form */
+
+/* =========================
+   FORM
+========================= */
 
 .registration-form h2 {
   color: #3f633c;
+
   font-size: 21px;
+
   margin: 30px 0 20px;
 }
 
+
 .form-row {
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 20px;
 }
 
+
 .form-group {
   display: flex;
+
   flex-direction: column;
+
   margin-bottom: 20px;
 }
 
+
 .form-group label {
   color: #4a3029;
+
   font-weight: bold;
+
   margin-bottom: 8px;
+
   font-size: 15px;
 }
+
 
 .form-group input,
 .form-group select,
 .form-group textarea {
   width: 100%;
+
   padding: 13px 15px;
 
   border: 1px solid #dfd2c7;
+
   border-radius: 10px;
 
   background: #fffaf5;
 
   font-size: 16px;
+
   font-family: inherit;
 
   outline: none;
+
+  color: #3a2923;
+
+  -webkit-text-fill-color: #3a2923;
 }
+
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   border-color: #a3262b;
-  box-shadow: 0 0 0 3px rgba(163, 38, 43, 0.08);
+
+  box-shadow:
+    0 0 0 3px rgba(163, 38, 43, 0.08);
 }
+
 
 .form-group textarea {
   resize: vertical;
 }
 
-/* Skills */
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #8a7770;
+
+  opacity: 1;
+}
+
+
+/* =========================
+   LOCATION
+========================= */
+
+.location-button {
+  width: 100%;
+
+  padding: 14px;
+
+  border: 2px solid #3f633c;
+
+  border-radius: 10px;
+
+  background: #f5f9f2;
+
+  color: #3f633c;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+.location-button:hover {
+  background: #3f633c;
+
+  color: white;
+}
+
+
+.location-message {
+  margin: 10px 0;
+
+  color: #3f633c;
+
+  font-size: 14px;
+}
+
+
+.coordinates {
+  padding: 12px 15px;
+
+  margin-bottom: 15px;
+
+  background: #fff0df;
+
+  border-radius: 10px;
+
+  color: #59483f;
+
+  font-size: 14px;
+}
+
+
+.coordinates p {
+  margin: 4px 0;
+}
+
+
+/* =========================
+   SKILLS / LANGUAGES
+========================= */
 
 .checkbox-grid {
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 12px;
 }
 
+
 .checkbox {
   display: flex;
+
   align-items: center;
+
   gap: 10px;
 
   padding: 12px;
 
   border: 1px solid #eadfd5;
+
   border-radius: 10px;
 
   background: #fffaf5;
 
   color: #59483f;
+
   font-weight: normal;
+
   cursor: pointer;
+
+  transition: 0.2s;
 }
+
 
 .checkbox:hover {
   border-color: #a3262b;
 }
 
+
 .checkbox input {
   width: 17px;
+
   height: 17px;
+
   accent-color: #a3262b;
+
+  flex-shrink: 0;
 }
 
-/* Register Button */
+
+/* =========================
+   PREFERRED DATES
+========================= */
+
+.preferred-dates-section {
+  margin-top: 10px;
+
+  margin-bottom: 30px;
+}
+
+
+.preferred-dates-section > label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #4a3029;
+
+  font-size: 17px;
+
+  font-weight: bold;
+}
+
+
+.date-help-text {
+  margin: 0 0 14px;
+
+  color: #777;
+
+  font-size: 14px;
+}
+
+
+.preferred-dates-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+
+  width: 100%;
+}
+
+
+.preferred-date-option {
+  display: flex;
+
+  align-items: center;
+
+  width: 100%;
+
+  min-height: 54px;
+
+  padding: 12px 16px;
+
+  border: 1px solid #e5d9d0;
+
+  border-radius: 10px;
+
+  background: #fffaf5;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+.preferred-date-option:hover {
+  background: #fff3e8;
+
+  border-color: #c9aaa0;
+}
+
+
+.preferred-date-option input[type="checkbox"] {
+  width: 18px;
+
+  height: 18px;
+
+  margin: 0 13px 0 0;
+
+  accent-color: #a3262b;
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+}
+
+
+.preferred-date-option span {
+  color: #2f2521;
+
+  font-size: 16px;
+
+  font-weight: 500;
+}
+
+
+.preferred-date-option:has(input:checked) {
+  background: #fff0df;
+
+  border-color: #a3262b;
+}
+
+
+.preferred-date-option:has(input:checked) span {
+  color: #a3262b;
+
+  font-weight: 600;
+}
+
+
+/* =========================
+   TIME INPUTS
+========================= */
+
+.registration-form input[type="time"] {
+  color: #3a2923 !important;
+
+  background: #fffaf5 !important;
+
+  -webkit-text-fill-color: #3a2923 !important;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   REGISTER BUTTON
+========================= */
 
 .register-button {
   width: 100%;
@@ -161,22 +441,33 @@
   margin-top: 15px;
 
   border: none;
+
   border-radius: 12px;
 
   background: #a3262b;
+
   color: white;
 
   font-size: 18px;
+
   font-weight: bold;
 
   cursor: pointer;
+
+  transition: 0.2s;
 }
+
 
 .register-button:hover {
   background: #861f24;
+
+  transform: translateY(-1px);
 }
 
-/* Mobile */
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 700px) {
 
@@ -184,168 +475,43 @@
     padding: 25px 15px;
   }
 
+
   .registration-card {
     padding: 25px 20px;
   }
+
+
+  .registration-header {
+    gap: 12px;
+  }
+
 
   .registration-header h1 {
     font-size: 25px;
   }
 
+
+  .registration-header p {
+    font-size: 14px;
+  }
+
+
   .form-row {
     grid-template-columns: 1fr;
+
     gap: 0;
   }
+
 
   .checkbox-grid {
     grid-template-columns: 1fr;
   }
-}
-.date-input-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.date-input-wrapper input {
-  width: 100%;
-  padding-right: 90px;
-}
-
-.date-placeholder {
-  position: absolute;
-  left: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #999;
-  font-size: 16px;
-  pointer-events: none;
-}
-
-.calendar-icon {
-  position: absolute;
-  right: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 20px;
-  pointer-events: none;
-}
-/* =========================
-   LOCATION
-========================= */
-
-.location-button {
-  width: 100%;
-  padding: 14px;
-
-  border: 2px solid #3f633c;
-  border-radius: 10px;
-
-  background: #f5f9f2;
-  color: #3f633c;
-
-  font-size: 16px;
-  font-weight: bold;
-
-  cursor: pointer;
-}
-
-.location-button:hover {
-  background: #3f633c;
-  color: white;
-}
-
-.location-message {
-  margin: 10px 0;
-  color: #3f633c;
-  font-size: 14px;
-}
-
-.coordinates {
-  padding: 12px 15px;
-  margin-bottom: 15px;
-
-  background: #fff0df;
-  border-radius: 10px;
-
-  color: #59483f;
-  font-size: 14px;
-}
-
-.coordinates p {
-  margin: 4px 0;
-}
 
 
-/* =========================
-   DATE
-========================= */
+  .logo-circle {
+    width: 58px;
 
-.date-input-wrapper {
-  position: relative;
-  width: 100%;
-}
+    height: 58px;
+  }
 
-.date-input-wrapper input {
-  width: 100%;
-  padding-right: 90px;
-}
-
-.date-placeholder {
-  position: absolute;
-  left: 18px;
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  color: #999;
-  font-size: 16px;
-
-  pointer-events: none;
-}
-
-.calendar-icon {
-  position: absolute;
-  right: 18px;
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  font-size: 20px;
-
-  pointer-events: none;
-}
-
-
-/* =========================
-   LARGE CHECKBOXES
-========================= */
-
-.large-checkbox {
-  margin-bottom: 12px;
-  min-height: 48px;
-}
-/* Fix text visibility inside volunteer form */
-
-.registration-form input,
-.registration-form textarea,
-.registration-form select {
-  color: #3a2923 !important;
-  background-color: #fffaf5 !important;
-  -webkit-text-fill-color: #3a2923 !important;
-}
-
-.registration-form input::placeholder,
-.registration-form textarea::placeholder,
-.registration-form select {
-  color: #8a7770 !important;
-  opacity: 1 !important;
-}
-
-.registration-form input[type="date"],
-.registration-form input[type="time"],
-.registration-form input[type="number"],
-.registration-form input[type="text"],
-.registration-form input[type="tel"] {
-  color: #3a2923 !important;
-  -webkit-text-fill-color: #3a2923 !important;
 }

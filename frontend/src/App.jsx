@@ -2,7 +2,8 @@ import './App.css'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import VolunteerRegistration from './pages/VolunteerRegistration'
 import CoordinatorTaskCreation from './pages/CoordinatorTaskCreation'
-
+import wariLogo from './assets/wari-logo.png'
+import Login from './pages/Login'
 function Home() {
   const navigate = useNavigate()
 
@@ -34,9 +35,13 @@ function Home() {
 
         <div className="logo-section">
 
-          <div className="logo-circle">
-            ↑
-          </div>
+         <div className="logo-circle">
+  <img
+    src={wariLogo}
+    alt="WariSeva Logo"
+    className="wari-logo"
+  />
+</div>
 
           <div>
             <h2>WariSeva</h2>
@@ -48,9 +53,9 @@ function Home() {
         {/* Login */}
         <button
           className="login-btn"
-          onClick={() => alert("Login")}
+         onClick={() => navigate('/login')}
         >
-          👤 Login
+           Login
         </button>
 
       </header>
@@ -64,7 +69,7 @@ function Home() {
           <div className="hero-content">
 
             <div className="small-title">
-              • &nbsp; SMART VOLUNTEER MANAGEMENT
+               &nbsp; SMART VOLUNTEER MANAGEMENT
             </div>
 
             <h1>
@@ -203,7 +208,10 @@ function App() {
     path="/coordinator-task-creation"
     element={<CoordinatorTaskCreation />}
   />
-
+<Route
+  path="/login"
+  element={<Login />}
+/>
 </Routes>
   )
 }
