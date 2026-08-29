@@ -1,3 +1,4 @@
+const Volunteer = require("./models/Volunteer");
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -7,6 +8,26 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.post("/api/volunteers", async (req, res) => {
+  try {
+    const volunteer = new Volunteer(req.body);
+
+    await volunteer.save();
+
+    res.status(201).json({
+      message: "Volunteer registered successfully",
+      volunteer
+    });
+  } catch (error) {
+    console.error("Volunteer registration failed:", error.message);
+
+    res.status(400).json({
+      message: "Volunteer registration failed",
+      error: error.message
+    });
+  }
+});
 
 mongoose
   .connect(process.env.MONGO_URI)
