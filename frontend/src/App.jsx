@@ -1,6 +1,11 @@
 import './App.css'
+import { Routes, Route, useNavigate } from 'react-router-dom'
+import VolunteerRegistration from './pages/VolunteerRegistration'
+import CoordinatorTaskCreation from './pages/CoordinatorTaskCreation'
 
-function App() {
+function Home() {
+  const navigate = useNavigate()
+
   return (
     <div className="app">
 
@@ -28,6 +33,7 @@ function App() {
       <header className="header">
 
         <div className="logo-section">
+
           <div className="logo-circle">
             ↑
           </div>
@@ -36,20 +42,23 @@ function App() {
             <h2>WariSeva</h2>
             <p>VOLUNTEER ALLOTMENT SYSTEM</p>
           </div>
+
         </div>
 
-       <button
-  className="login-btn"
-  onClick={() => alert("Login")}
->
-  👤 Login
-</button>
+        {/* Login */}
+        <button
+          className="login-btn"
+          onClick={() => alert("Login")}
+        >
+          👤 Login
+        </button>
 
       </header>
 
-      {/* Hero Section */}
+      {/* Main Content */}
       <main>
 
+        {/* Hero Section */}
         <section className="hero">
 
           <div className="hero-content">
@@ -72,19 +81,21 @@ function App() {
 
             <div className="hero-buttons">
 
+              {/* Volunteer Registration */}
               <button
-  className="primary-btn"
-  onClick={() => alert("Volunteer Registration")}
->
-  Volunteer Registration
-</button>
+                className="primary-btn"
+                onClick={() => navigate('/volunteer-registration')}
+              >
+                Volunteer Registration
+              </button>
 
-             <button
-  className="secondary-btn"
-  onClick={() => alert("Coordinator Task Creation")}
->
-  Coordinator Task Creation
-</button>
+              {/* Coordinator Task Creation */}
+              <button
+                className="secondary-btn"
+               onClick={() => navigate('/coordinator-task-creation')}
+              >
+                Coordinator Task Creation
+              </button>
 
             </div>
 
@@ -104,36 +115,54 @@ function App() {
           <div className="features">
 
             <div className="feature-card">
-              <div className="feature-icon">👥</div>
 
-              <h3>Volunteer Management</h3>
+              <div className="feature-icon">
+                👥
+              </div>
+
+              <h3>
+                Volunteer Management
+              </h3>
 
               <p>
                 Register and manage volunteers
                 in one place.
               </p>
+
             </div>
 
             <div className="feature-card">
-              <div className="feature-icon">📋</div>
 
-              <h3>Smart Task Assignment</h3>
+              <div className="feature-icon">
+                📋
+              </div>
+
+              <h3>
+                Smart Task Assignment
+              </h3>
 
               <p>
                 Match volunteers with tasks based on
                 their skills and availability.
               </p>
+
             </div>
 
             <div className="feature-card">
-              <div className="feature-icon">📍</div>
 
-              <h3>Location Support</h3>
+              <div className="feature-icon">
+                📍
+              </div>
+
+              <h3>
+                Location Support
+              </h3>
 
               <p>
                 Find tasks and volunteers using
                 location-based information.
               </p>
+
             </div>
 
           </div>
@@ -148,6 +177,34 @@ function App() {
       </footer>
 
     </div>
+  )
+}
+
+
+/* =========================
+   APP ROUTES
+========================= */
+
+function App() {
+  return (
+    <Routes>
+
+  <Route
+    path="/"
+    element={<Home />}
+  />
+
+  <Route
+    path="/volunteer-registration"
+    element={<VolunteerRegistration />}
+  />
+
+  <Route
+    path="/coordinator-task-creation"
+    element={<CoordinatorTaskCreation />}
+  />
+
+</Routes>
   )
 }
 

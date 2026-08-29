@@ -1,0 +1,386 @@
+/* =========================
+   TASK PAGE
+========================= */
+
+.task-page {
+  min-height: 100vh;
+  padding: 50px 20px;
+  background: #fffaf5;
+}
+
+.task-card {
+  max-width: 900px;
+  margin: auto;
+
+  background: white;
+
+  border-radius: 22px;
+
+  padding: 45px;
+
+  border: 1px solid #f0dfca;
+
+  box-shadow: 0 8px 30px rgba(100, 50, 20, 0.08);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.task-header {
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+
+  border-bottom: 1px solid #f0dfca;
+}
+
+.task-logo {
+  width: 55px;
+  height: 55px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #fff0df;
+
+  font-size: 28px;
+}
+
+.task-header h1 {
+  margin: 0;
+
+  color: #a3262b;
+
+  font-size: 32px;
+}
+
+.task-header p {
+  margin: 6px 0 0;
+
+  color: #6b5a52;
+
+  font-size: 16px;
+}
+
+
+/* =========================
+   SECTION HEADINGS
+========================= */
+
+.task-form h2 {
+  color: #3f633c;
+
+  font-size: 21px;
+
+  margin: 30px 0 20px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  color: #4a3029;
+
+  font-weight: bold;
+
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+
+  padding: 13px 15px;
+
+  border: 1px solid #dfd2c7;
+
+  border-radius: 10px;
+
+  background: #fffaf5;
+
+  font-size: 16px;
+
+  font-family: inherit;
+
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #a3262b;
+
+  box-shadow:
+    0 0 0 3px rgba(163, 38, 43, 0.08);
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+
+/* =========================
+   LOCATION
+========================= */
+
+.task-location-button {
+  width: 100%;
+
+  padding: 14px;
+
+  border: 2px solid #3f633c;
+
+  border-radius: 10px;
+
+  background: #f5f9f2;
+
+  color: #3f633c;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.task-location-button:hover {
+  background: #3f633c;
+
+  color: white;
+}
+
+.task-location-message {
+  color: #3f633c;
+
+  font-size: 14px;
+
+  margin: 10px 0;
+}
+
+.task-coordinates {
+  background: #fff0df;
+
+  padding: 12px 15px;
+
+  border-radius: 10px;
+
+  color: #59483f;
+
+  font-size: 14px;
+}
+
+.task-coordinates p {
+  margin: 4px 0;
+}
+
+
+/* =========================
+   CHECKBOXES
+========================= */
+
+.task-checkbox-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+
+  margin-bottom: 20px;
+}
+
+.task-checkbox {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 12px;
+
+  border: 1px solid #eadfd5;
+
+  border-radius: 10px;
+
+  background: #fffaf5;
+
+  color: #59483f;
+
+  cursor: pointer;
+}
+
+.task-checkbox:hover {
+  border-color: #a3262b;
+}
+
+.task-checkbox input {
+  width: 17px;
+  height: 17px;
+
+  accent-color: #a3262b;
+}
+
+.task-large-checkbox {
+  margin-bottom: 12px;
+
+  min-height: 48px;
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+.task-form-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 20px;
+}
+
+.task-date-wrapper {
+  position: relative;
+
+  width: 100%;
+}
+
+.task-date-wrapper input {
+  width: 100%;
+
+  padding-right: 90px;
+}
+
+.task-date-placeholder {
+  position: absolute;
+
+  left: 18px;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #999;
+
+  font-size: 16px;
+
+  pointer-events: none;
+}
+
+.task-calendar-icon {
+  position: absolute;
+
+  right: 18px;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  font-size: 20px;
+
+  pointer-events: none;
+}
+
+
+/* =========================
+   CREATE BUTTON
+========================= */
+
+.create-task-button {
+  width: 100%;
+
+  padding: 16px;
+
+  margin-top: 20px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #a3262b;
+
+  color: white;
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.create-task-button:hover {
+  background: #861f24;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+  .task-page {
+    padding: 25px 15px;
+  }
+
+  .task-card {
+    padding: 25px 20px;
+  }
+
+  .task-header h1 {
+    font-size: 25px;
+  }
+
+  .task-form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .task-checkbox-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+/* Fix text visibility inside coordinator form */
+
+.task-form input,
+.task-form textarea,
+.task-form select {
+  color: #3a2923 !important;
+  background-color: #fffaf5 !important;
+  -webkit-text-fill-color: #3a2923 !important;
+}
+
+.task-form input::placeholder,
+.task-form textarea::placeholder {
+  color: #8a7770 !important;
+  opacity: 1 !important;
+}
+
+/* Make selected date/time visible */
+.task-form input[type="date"],
+.task-form input[type="time"],
+.task-form input[type="number"],
+.task-form input[type="text"],
+.task-form input[type="tel"] {
+  color: #3a2923 !important;
+  -webkit-text-fill-color: #3a2923 !important;
+}

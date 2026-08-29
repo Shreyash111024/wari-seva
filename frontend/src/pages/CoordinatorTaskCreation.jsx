@@ -1,0 +1,464 @@
+import { useState } from 'react'
+import './CoordinatorTaskCreation.css'
+
+function CoordinatorTaskCreation() {
+  const [taskName, setTaskName] = useState('')
+  const [description, setDescription] = useState('')
+  const [requiredVolunteers, setRequiredVolunteers] = useState('')
+
+  const [address, setAddress] = useState('')
+  const [latitude, setLatitude] = useState('')
+  const [longitude, setLongitude] = useState('')
+  const [locationMessage, setLocationMessage] = useState('')
+
+  const [requiredSkills, setRequiredSkills] = useState([])
+  const [requiredLanguages, setRequiredLanguages] = useState([])
+
+  const [date, setDate] = useState('')
+  const [startTime, setStartTime] = useState('')
+  const [endTime, setEndTime] = useState('')
+
+  const [fullDayAvailability, setFullDayAvailability] =
+    useState(false)
+
+  const [physicallyFit, setPhysicallyFit] =
+    useState(false)
+
+  const getCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      setLocationMessage(
+        'Location is not supported by this browser.'
+      )
+      return
+    }
+
+    setLocationMessage('Getting your location...')
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLatitude(position.coords.latitude)
+        setLongitude(position.coords.longitude)
+
+        setLocationMessage(
+          'Location captured successfully.'
+        )
+      },
+      (error) => {
+        if (error.code === 1) {
+          setLocationMessage(
+            'Location permission denied. Please allow location access.'
+          )
+        } else {
+          setLocationMessage(
+            'Unable to get your location. Please try again.'
+          )
+        }
+      }
+    )
+  }
+
+  const handleSkillChange = (skill) => {
+    setRequiredSkills((previous) =>
+      previous.includes(skill)
+        ? previous.filter((item) => item !== skill)
+        : [...previous, skill]
+    )
+  }
+
+  const handleLanguageChange = (language) => {
+    setRequiredLanguages((previous) =>
+      previous.includes(language)
+        ? previous.filter((item) => item !== language)
+        : [...previous, language]
+    )
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    const taskData = {
+      taskId: 'GENERATED_BY_BACKEND',
+
+      taskName,
+
+      description,
+
+      location: {
+        address,
+        latitude,
+        longitude,
+      },
+
+      requiredVolunteers: Number(requiredVolunteers),
+
+      requiredSkills,
+
+      requiredLanguages,
+
+      date,
+
+      time: {
+        start: startTime,
+        end: endTime,
+      },
+
+      extraRequirements: {
+        fullDayAvailability,
+        physicallyFit,
+      },
+
+      status: 'open',
+
+      createdAt: 'GENERATED_BY_BACKEND',
+    }
+
+    console.log('TASK DATA:', taskData)
+
+    alert(
+      'Task created successfully!'
+    )
+  }
+
+  const skills = [
+    'First Aid',
+    'Medical Assistance',
+    'Crowd Management',
+    'Food Distribution',
+    'Water Distribution',
+    'General Assistance',
+  ]
+
+  const languages = [
+    'Marathi',
+    'Hindi',
+    'English',
+  ]
+
+  return (
+    <div className="task-page">
+
+      <div className="task-card">
+
+        {/* Header */}
+
+        <div className="task-header">
+
+          <div className="task-logo">
+            📋
+          </div>
+
+          <div>
+            <h1>Coordinator Task Creation</h1>
+
+            <p>
+              Create a volunteer task for the Wari
+            </p>
+          </div>
+
+        </div>
+
+
+        <form
+          className="task-form"
+          onSubmit={handleSubmit}
+        >
+
+          {/* Task Information */}
+
+          <h2>Task Information</h2>
+
+          <div className="form-group">
+
+            <label>Task Name</label>
+
+            <input
+              type="text"
+              value={taskName}
+              onChange={(e) =>
+                setTaskName(e.target.value)
+              }
+              placeholder="Enter task name"
+              required
+            />
+
+          </div>
+
+
+          <div className="form-group">
+
+            <label>Description</label>
+
+            <textarea
+              value={description}
+              onChange={(e) =>
+                setDescription(e.target.value)
+              }
+              rows="4"
+              placeholder="Describe the task"
+              required
+            />
+
+          </div>
+
+
+          <div className="form-group">
+
+            <label>Required Volunteers</label>
+
+            <input
+              type="number"
+              value={requiredVolunteers}
+              onChange={(e) =>
+                setRequiredVolunteers(e.target.value)
+              }
+              min="1"
+              placeholder="Number of volunteers"
+              required
+            />
+
+          </div>
+
+
+          {/* Location */}
+
+          <h2>Task Location</h2>
+
+          <div className="form-group">
+
+            <label>Address</label>
+
+            <input
+              type="text"
+              value={address}
+              onChange={(e) =>
+                setAddress(e.target.value)
+              }
+              placeholder="Enter task address"
+              required
+            />
+
+          </div>
+
+
+          <button
+            type="button"
+            className="task-location-button"
+            onClick={getCurrentLocation}
+          >
+            📍 Use Current Location
+          </button>
+
+
+          {locationMessage && (
+            <p className="task-location-message">
+              {locationMessage}
+            </p>
+          )}
+
+
+          {latitude !== '' && longitude !== '' && (
+            <div className="task-coordinates">
+
+              <p>
+                <strong>Latitude:</strong> {latitude}
+              </p>
+
+              <p>
+                <strong>Longitude:</strong> {longitude}
+              </p>
+
+            </div>
+          )}
+
+
+          {/* Skills */}
+
+          <h2>Required Skills</h2>
+
+          <div className="task-checkbox-grid">
+
+            {skills.map((skill) => (
+
+              <label
+                className="task-checkbox"
+                key={skill}
+              >
+
+                <input
+                  type="checkbox"
+                  checked={requiredSkills.includes(skill)}
+                  onChange={() =>
+                    handleSkillChange(skill)
+                  }
+                />
+
+                {skill}
+
+              </label>
+
+            ))}
+
+          </div>
+
+
+          {/* Languages */}
+
+          <h2>Required Languages</h2>
+
+          <div className="task-checkbox-grid">
+
+            {languages.map((language) => (
+
+              <label
+                className="task-checkbox"
+                key={language}
+              >
+
+                <input
+                  type="checkbox"
+                  checked={requiredLanguages.includes(
+                    language
+                  )}
+                  onChange={() =>
+                    handleLanguageChange(language)
+                  }
+                />
+
+                {language}
+
+              </label>
+
+            ))}
+
+          </div>
+
+
+          {/* Date & Time */}
+
+          <h2>Date & Time</h2>
+
+          <div className="task-form-row">
+
+            <div className="form-group">
+
+              <label>Date</label>
+
+              <div className="task-date-wrapper">
+
+                <input
+                  type="date"
+                  value={date}
+                  onChange={(e) =>
+                    setDate(e.target.value)
+                  }
+                  min={
+                    new Date()
+                      .toISOString()
+                      .split('T')[0]
+                  }
+                  required
+                />
+
+                <span className="task-date-placeholder">
+                  DD / MM / YYYY
+                </span>
+
+                <span className="task-calendar-icon">
+                  📅
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div className="form-group">
+
+              <label>Start Time</label>
+
+              <input
+                type="time"
+                value={startTime}
+                onChange={(e) =>
+                  setStartTime(e.target.value)
+                }
+                required
+              />
+
+            </div>
+
+          </div>
+
+
+          <div className="form-group">
+
+            <label>End Time</label>
+
+            <input
+              type="time"
+              value={endTime}
+              onChange={(e) =>
+                setEndTime(e.target.value)
+              }
+              required
+            />
+
+          </div>
+
+
+          {/* Extra Requirements */}
+
+          <h2>Extra Requirements</h2>
+
+          <label className="task-checkbox task-large-checkbox">
+
+            <input
+              type="checkbox"
+              checked={fullDayAvailability}
+              onChange={(e) =>
+                setFullDayAvailability(
+                  e.target.checked
+                )
+              }
+            />
+
+            Full Day Availability Required
+
+          </label>
+
+
+          <label className="task-checkbox task-large-checkbox">
+
+            <input
+              type="checkbox"
+              checked={physicallyFit}
+              onChange={(e) =>
+                setPhysicallyFit(
+                  e.target.checked
+                )
+              }
+            />
+
+            Physically Fit
+
+          </label>
+
+
+          {/* Create Task */}
+
+          <button
+            type="submit"
+            className="create-task-button"
+          >
+            Create Task
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+  )
+}
+
+export default CoordinatorTaskCreation
