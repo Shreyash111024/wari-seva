@@ -1,44 +1,78 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './Dashboard.css'
 
 function Dashboard() {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      taskName: 'Medical Assistance',
-      description: 'Provide basic medical support to Wari pilgrims.',
-      location: 'Bhavani Peth, Pune',
-      dates: ['9 July', '10 July'],
-      startTime: '09:00',
-      endTime: '13:00',
-      requiredVolunteers: 5,
-      status: 'new',
-    },
-    {
-      id: 2,
-      taskName: 'Water Distribution',
-      description: 'Help distribute drinking water to pilgrims.',
-      location: 'Hadapsar, Pune',
-      dates: ['10 July'],
-      startTime: '15:00',
-      endTime: '18:00',
-      requiredVolunteers: 6,
-      status: 'new',
-    },
-    {
-      id: 3,
-      taskName: 'Crowd Management',
-      description: 'Assist coordinators with crowd guidance.',
-      location: 'Nana Peth, Pune',
-      dates: ['11 July'],
-      startTime: '06:00',
-      endTime: '10:00',
-      requiredVolunteers: 4,
-      status: 'new',
-    },
-  ])
-
+  const [tasks, setTasks] = useState([])
   const [message, setMessage] = useState('')
+
+  const loggedInVolunteer = JSON.parse(
+    localStorage.getItem('loggedInVolunteer') || 'null'
+  )
+
+ console.log(
+  'LOGGED IN VOLUNTEER:',
+  JSON.stringify(loggedInVolunteer, null, 2)
+)
+
+ useEffect(() => {
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch(
+        'http://localhost:5000/api/tasks'
+      )
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || 'Failed to fetch tasks'
+        )
+      }
+
+      const formattedTasks = (data.tasks || [])
+        .filter((task) => task.status === 'open')
+        .map((task) => ({
+          id: task.taskId,
+          taskId: task.taskId,
+          taskName: task.taskName,
+          description: task.description,
+          location:
+            task.location?.address || 'Pune',
+
+          dates: (task.preferredDates || []).map((date) => {
+            if (date === '2026-07-09') return '9 July'
+            if (date === '2026-07-10') return '10 July'
+            if (date === '2026-07-11') return '11 July'
+
+            return date
+          }),
+
+          startTime: task.time?.start || '',
+          endTime: task.time?.end || '',
+
+          requiredVolunteers:
+            task.requiredVolunteers,
+
+          status: 'new'
+        }))
+
+      console.log(
+        'TASKS FROM DATABASE:',
+        formattedTasks
+      )
+
+      setTasks(formattedTasks)
+
+    } catch (error) {
+      console.error(
+        'Fetching tasks failed:',
+        error
+      )
+    }
+  }
+
+  fetchTasks()
+}, [])
 
   const acceptTask = (id) => {
     setTasks((previousTasks) =>
@@ -49,7 +83,9 @@ function Dashboard() {
       )
     )
 
-    setMessage('Task accepted successfully!')
+    setMessage(
+      'Task accepted successfully!'
+    )
   }
 
   const reportTask = (id) => {
@@ -68,19 +104,27 @@ function Dashboard() {
 
   const declineTask = (id) => {
     setTasks((previousTasks) =>
-      previousTasks.filter((task) => task.id !== id)
+      previousTasks.filter(
+        (task) => task.id !== id
+      )
     )
   }
 
   const formatTime = (time) => {
     if (!time) return ''
 
-    const [hour, minute] = time.split(':')
+    const [hour, minute] =
+      time.split(':')
+
     const hourNumber = Number(hour)
 
-    const period = hourNumber >= 12 ? 'PM' : 'AM'
+    const period =
+      hourNumber >= 12 ? 'PM' : 'AM'
+
     const displayHour =
-      hourNumber % 12 === 0 ? 12 : hourNumber % 12
+      hourNumber % 12 === 0
+        ? 12
+        : hourNumber % 12
 
     return `${displayHour}:${minute} ${period}`
   }
@@ -102,19 +146,24 @@ function Dashboard() {
 
           <div>
             <h1>WariSeva</h1>
-            <p>VOLUNTEER DASHBOARD</p>
+            <p>
+              VOLUNTEER DASHBOARD
+            </p>
           </div>
 
         </div>
 
-
         <div className="dashboard-user">
 
-          <span>Welcome, Volunteer</span>
+          <span>
+            Welcome, Volunteer
+          </span>
 
           <button
             className="logout-button"
-            onClick={() => alert('Logged out')}
+            onClick={() =>
+              alert('Logged out')
+            }
           >
             Logout
           </button>
@@ -129,7 +178,6 @@ function Dashboard() {
       ========================== */}
 
       {message && (
-
         <div className="dashboard-message">
 
           <span className="success-icon">
@@ -141,13 +189,14 @@ function Dashboard() {
           </span>
 
           <button
-            onClick={() => setMessage('')}
+            onClick={() =>
+              setMessage('')
+            }
           >
             ×
           </button>
 
         </div>
-
       )}
 
 
@@ -169,13 +218,16 @@ function Dashboard() {
             <h2>
               Welcome to your
               <br />
-              <span>Volunteer Dashboard</span>
+              <span>
+                Volunteer Dashboard
+              </span>
             </h2>
 
             <p className="welcome-text">
-              Find tasks matched to your preferences,
-              accept suitable tasks and contribute to
-              a safer and better organized Wari.
+              Find tasks matched to your
+              preferences, accept suitable
+              tasks and contribute to a safer
+              and better organized Wari.
             </p>
 
           </div>
@@ -186,7 +238,8 @@ function Dashboard() {
             <strong>
               {
                 tasks.filter(
-                  (task) => task.status === 'new'
+                  (task) =>
+                    task.status === 'new'
                 ).length
               }
             </strong>
@@ -232,12 +285,19 @@ function Dashboard() {
             {tasks.length === 0 ? (
 
               <div className="no-tasks">
+
                 <div>✓</div>
-                <h3>No new tasks</h3>
+
+                <h3>
+                  No new tasks
+                </h3>
+
                 <p>
-                  We'll notify you when a suitable
-                  task becomes available.
+                  We'll notify you when a
+                  suitable task becomes
+                  available.
                 </p>
+
               </div>
 
             ) : (
@@ -268,80 +328,77 @@ function Dashboard() {
                           : ''
                       }`}
                     >
-
-                      {task.status === 'new'
-                        ? 'NEW TASK'
-                        : task.status === 'accepted'
+                      {task.status === 'accepted'
                         ? 'ACCEPTED'
-                        : 'REPORTED'}
-
+                        : task.status === 'reported'
+                        ? 'REPORTED'
+                        : 'NEW'}
                     </span>
 
                   </div>
 
 
-                  {/* Task Title */}
+                  {/* Task Information */}
 
-                  <h3>
+                  <h3 className="task-title">
                     {task.taskName}
                   </h3>
 
-
-                  {task.status === 'new' && (
-
-                    <p className="task-description">
-                      {task.description}
-                    </p>
-
-                  )}
+                  <p className="task-description">
+                    {task.description}
+                  </p>
 
 
-                  {/* =========================
-                      NEW TASK
-                  ========================== */}
+                  <div className="task-details">
 
-                  {task.status === 'new' && (
-
-                    <>
-
-                      <div className="task-info">
-
-                        <div>
-                          <span>📍</span>
-                          <span>
-                            {task.location}
-                          </span>
-                        </div>
-
-                        <div>
-                          <span>📅</span>
-                          <span>
-                            {task.dates.join(', ')}
-                          </span>
-                        </div>
-
-                        <div>
-                          <span>🕐</span>
-                          <span>
-                            {formatTime(task.startTime)}
-                            {' - '}
-                            {formatTime(task.endTime)}
-                          </span>
-                        </div>
-
-                        <div>
-                          <span>👥</span>
-                          <span>
-                            {task.requiredVolunteers}
-                            {' volunteers required'}
-                          </span>
-                        </div>
-
-                      </div>
+                    <div className="task-detail">
+                      <span>📍</span>
+                      <span>
+                        {task.location}
+                      </span>
+                    </div>
 
 
-                      <div className="task-actions">
+                    <div className="task-detail">
+                      <span>📅</span>
+                      <span>
+                        {task.dates.join(', ')}
+                      </span>
+                    </div>
 
+
+                    <div className="task-detail">
+                      <span>⏰</span>
+                      <span>
+                        {formatTime(
+                          task.startTime
+                        )}
+                        {' - '}
+                        {formatTime(
+                          task.endTime
+                        )}
+                      </span>
+                    </div>
+
+
+                    <div className="task-detail">
+                      <span>👥</span>
+                      <span>
+                        {task.requiredVolunteers}
+                        {' volunteers required'}
+                      </span>
+                    </div>
+
+                  </div>
+
+
+                  {/* Buttons */}
+
+                  <div className="task-actions">
+
+                    {task.status === 'new' && (
+
+                      <>
                         <button
                           className="accept-button"
                           onClick={() =>
@@ -359,93 +416,12 @@ function Dashboard() {
                         >
                           Decline
                         </button>
+                      </>
 
-                      </div>
-
-                    </>
-
-                  )}
+                    )}
 
 
-                  {/* =========================
-                      ACCEPTED TASK
-                  ========================== */}
-
-                  {task.status === 'accepted' && (
-
-                    <div className="accepted-details">
-
-                      <div className="accepted-title">
-                        ✓ Task Accepted Successfully
-                      </div>
-
-
-                      <div className="detail-row">
-
-                        <span>📍</span>
-
-                        <div>
-                          <small>Location</small>
-                          <strong>
-                            {task.location}
-                          </strong>
-                        </div>
-
-                      </div>
-
-
-                      <div className="detail-row">
-
-                        <span>📅</span>
-
-                        <div>
-                          <small>Date</small>
-                          <strong>
-                            {task.dates.join(', ')}
-                          </strong>
-                        </div>
-
-                      </div>
-
-
-                      <div className="detail-row">
-
-                        <span>🕐</span>
-
-                        <div>
-                          <small>Time</small>
-                          <strong>
-                            {formatTime(task.startTime)}
-                            {' - '}
-                            {formatTime(task.endTime)}
-                          </strong>
-                        </div>
-
-                      </div>
-
-
-                      <div className="detail-row">
-
-                        <span>👥</span>
-
-                        <div>
-                          <small>
-                            Volunteers Required
-                          </small>
-
-                          <strong>
-                            {task.requiredVolunteers}
-                          </strong>
-
-                        </div>
-
-                      </div>
-
-
-                      <div className="confirmed-status">
-                        STATUS: CONFIRMED
-                      </div>
-
+                    {task.status === 'accepted' && (
 
                       <button
                         className="report-button"
@@ -453,66 +429,12 @@ function Dashboard() {
                           reportTask(task.id)
                         }
                       >
-                        ✓ Report Task
+                        Report Activity
                       </button>
 
-                    </div>
+                    )}
 
-                  )}
-
-
-                  {/* =========================
-                      REPORTED TASK
-                  ========================== */}
-
-                  {task.status === 'reported' && (
-
-                    <div className="reported-details">
-
-                      <div className="reported-success">
-
-                        <div className="reported-icon">
-                          ✓
-                        </div>
-
-                        <div>
-
-                          <strong>
-                            Task Reported Successfully
-                          </strong>
-
-                          <p>
-                            Your volunteer activity has
-                            been recorded for the Pune
-                            Wari volunteer heatmap.
-                          </p>
-
-                        </div>
-
-                      </div>
-
-
-                      <div className="completed-task-info">
-
-                        <div>
-                          📍 {task.location}
-                        </div>
-
-                        <div>
-                          📅 {task.dates.join(', ')}
-                        </div>
-
-                        <div>
-                          🕐 {formatTime(task.startTime)}
-                          {' - '}
-                          {formatTime(task.endTime)}
-                        </div>
-
-                      </div>
-
-                    </div>
-
-                  )}
+                  </div>
 
                 </div>
 
@@ -524,119 +446,114 @@ function Dashboard() {
 
         </section>
 
+            {/* =========================
+    PUNE MAP PREVIEW
+========================== */}
 
-        {/* =========================
-            PUNE MAP PREVIEW
-        ========================== */}
+<section className="map-preview-section">
 
-        <section className="map-preview-section">
+  <div className="section-header">
 
-          <div className="section-header">
+    <div>
 
-            <div>
+      <p className="section-label">
+        ACTIVITY COVERAGE
+      </p>
 
-              <p className="section-label">
-                LOCATION INTELLIGENCE
-              </p>
+      <h2>
+        🗺️ Pune Wari Volunteer Map
+      </h2>
 
-              <h2>
-                🗺️ Pune Wari Volunteer Map
-              </h2>
+    </div>
 
-            </div>
+    <span className="live-badge">
+      ● LIVE
+    </span>
 
-            <span className="pune-badge">
-              PUNE ONLY
-            </span>
+  </div>
 
-          </div>
+  <p className="map-text">
+    Volunteer activity and task coverage
+    across the Pune Wari route.
+  </p>
 
+  <div className="pune-map">
 
-          <p className="map-text">
-            Volunteer activity and task coverage
-            across the Pune Wari route.
-          </p>
+    <div className="map-overlay">
 
+      <div className="map-title">
+        Pune Wari Route
+      </div>
 
-          <div className="pune-map">
+      <div className="map-subtitle">
+        Volunteer Activity Heatmap
+      </div>
 
-            <div className="map-overlay">
+    </div>
 
-              <div className="map-title">
-                Pune Wari Route
-              </div>
+    {/* Wari route */}
 
-              <div className="map-subtitle">
-                Volunteer Activity Heatmap
-              </div>
+    <div className="route route-one"></div>
+    <div className="route route-two"></div>
 
-            </div>
+    {/* Heat areas */}
 
+    <div className="heat-point heat-one"></div>
+    <div className="heat-point heat-two"></div>
+    <div className="heat-point heat-three"></div>
+    <div className="heat-point heat-four"></div>
 
-            {/* Pune route visual */}
+    {/* Locations */}
 
-            <div className="route route-one"></div>
+    <div className="map-label label-one">
+      Pune
+    </div>
 
-            <div className="route route-two"></div>
+    <div className="map-label label-two">
+      Hadapsar
+    </div>
 
+    <div className="map-label label-three">
+      Nana Peth
+    </div>
 
-            {/* Heat areas */}
+    {/* Legend */}
 
-            <div className="heat-point heat-one"></div>
+    <div className="map-legend">
 
-            <div className="heat-point heat-two"></div>
+      <strong>
+        Volunteer Activity
+      </strong>
 
-            <div className="heat-point heat-three"></div>
+      <div className="legend-item">
+        <span className="legend-dot high"></span>
+        High
+      </div>
 
-            <div className="heat-point heat-four"></div>
+      <div className="legend-item">
+        <span className="legend-dot medium"></span>
+        Medium
+      </div>
 
+      <div className="legend-item">
+        <span className="legend-dot low"></span>
+        Low
+      </div>
 
-            <div className="map-label label-one">
-              Pune
-            </div>
+    </div>
 
-            <div className="map-label label-two">
-              Hadapsar
-            </div>
+  </div>
 
-            <div className="map-label label-three">
-              Nana Peth
-            </div>
-
-
-            <div className="map-legend">
-
-              <strong>
-                Volunteer Activity
-              </strong>
-
-              <div>
-                <span className="legend-dot high"></span>
-                High
-              </div>
-
-              <div>
-                <span className="legend-dot medium"></span>
-                Medium
-              </div>
-
-              <div>
-                <span className="legend-dot low"></span>
-                Low
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
+</section>
         {/* =========================
             HOW IT WORKS
         ========================== */}
 
         <section className="how-section">
+
+          <p className="section-label">
+            SIMPLE PROCESS
+          </p>
 
           <h2>
             How WariSeva Works
@@ -655,8 +572,8 @@ function Dashboard() {
               </h3>
 
               <p>
-                Get notified when a task matches
-                your preferences.
+                Get notified when a task
+                matches your preferences.
               </p>
 
             </div>
@@ -723,9 +640,7 @@ function Dashboard() {
 
 
       <footer className="dashboard-footer">
-
         © 2026 WariSeva | Pune Wari Volunteer Management
-
       </footer>
 
     </div>

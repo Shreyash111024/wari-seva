@@ -576,7 +576,8 @@ app.get(
 
 app.get(
     "/api/tasks/:taskId/matches",
-    async (req, res) => {
+    async (req, res) => 
+{
 
         try {
 
@@ -725,7 +726,109 @@ app.get(
 
     }
 );
+// ============================================
+// MATCH SINGLE VOLUNTEER WITH TASK
+// ============================================
 
+app.get(
+    "/api/tasks/:taskId/match/:volunteerId",
+    async (req, res) => {
+
+        try {
+
+            // Find task
+            const task =
+                await Task.findOne({
+                    taskId:
+                        req.params.taskId
+                });
+
+            if (!task) {
+
+                return res.status(404).json({
+                    message:
+                        "Task not found"
+                });
+
+            }
+
+
+            // Find volunteer
+            const volunteer =
+                await Volunteer.findOne({
+                    volunteerId:
+                        req.params.volunteerId
+                });
+
+            if (!volunteer) {
+
+                return res.status(404).json({
+                    message:
+                        "Volunteer not found"
+                });
+
+            }
+
+
+            // Run matching engine
+            const result =
+                matchVolunteers(
+                    [volunteer],
+                    task
+                );
+
+
+            // Check if volunteer matched
+            const matched =
+                result.rankedVolunteers.length > 0;
+
+
+            // Send result
+            res.status(200).json({
+
+                message:
+                    "Volunteer-task matching completed",
+
+                taskId:
+                    task.taskId,
+
+                volunteerId:
+                    volunteer.volunteerId,
+
+                matched,
+
+                rankedVolunteers:
+                    result.rankedVolunteers,
+
+                selectedVolunteers:
+                    result.selectedVolunteers
+
+            });
+
+        }
+        catch (error) {
+
+            console.error(
+                "Volunteer matching failed:",
+                error.message
+            );
+
+
+            res.status(500).json({
+
+                message:
+                    "Volunteer-task matching failed",
+
+                error:
+                    error.message
+
+            });
+
+        }
+
+    }
+);
+// ============================================
 
 // ============================================
 // DATABASE CONNECTION
