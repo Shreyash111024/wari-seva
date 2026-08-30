@@ -89,18 +89,22 @@ function Dashboard() {
   }
 
   const reportTask = (id) => {
-    setTasks((previousTasks) =>
-      previousTasks.map((task) =>
-        task.id === id
-          ? { ...task, status: 'reported' }
-          : task
-      )
-    )
+  const task = tasks.find((task) => task.id === id)
 
-    setMessage(
-      'Task reported successfully. Your activity can now contribute to the Pune volunteer heatmap.'
+  if (!task) return
+
+  setTasks((previousTasks) =>
+    previousTasks.map((task) =>
+      task.id === id
+        ? { ...task, status: 'reported' }
+        : task
     )
-  }
+  )
+
+  alert(
+    `Task: ${task.taskName}\n\nReported Successfully!\nYour activity has been reported.`
+  )
+}
 
   const declineTask = (id) => {
     setTasks((previousTasks) =>
